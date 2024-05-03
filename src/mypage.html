@@ -27,7 +27,18 @@
       <option value="3">ボーカル</option>
     </select>
     <button id="update">更新</button>
-    <script type="module" src="./importSW.js"></script>
+    <script>
+      if ("serviceWorker" in navigator) {
+        navigator.serviceWorker
+          .register("./sw.js")
+          .then((registration) => {
+            console.log("ServiceWorker registration successful.");
+          })
+          .catch((err) => {
+            console.log("ServiceWorker registration failed.");
+          });
+      }
+    </script>
     <script type="module" src="./js/mypage.js"></script>
   </body>
 </html>

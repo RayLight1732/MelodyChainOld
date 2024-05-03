@@ -23,7 +23,18 @@
     <div id="error" style="display: none">
       割り当てられているリレーはありません
     </div>
-    <script type="module" src="./importSW.js"></script>
+    <script>
+      if ("serviceWorker" in navigator) {
+        navigator.serviceWorker
+          .register("./sw.js")
+          .then((registration) => {
+            console.log("ServiceWorker registration successful.");
+          })
+          .catch((err) => {
+            console.log("ServiceWorker registration failed.");
+          });
+      }
+    </script>
     <script type="module" src="./js/upload.js"></script>
   </body>
 </html>

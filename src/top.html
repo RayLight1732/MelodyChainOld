@@ -17,7 +17,18 @@
     <button id="mypage">マイページ</button>
     <button id="upload">投稿</button>
     <button id="logout">ログアウト</button>
-    <script type="module" src="./importSW.js"></script>
+    <script>
+      if ("serviceWorker" in navigator) {
+        navigator.serviceWorker
+          .register("./sw.js")
+          .then((registration) => {
+            console.log("ServiceWorker registration successful.");
+          })
+          .catch((err) => {
+            console.log("ServiceWorker registration failed.");
+          });
+      }
+    </script>
     <script type="module" src="./js/top.js"></script>
   </body>
 </html>
