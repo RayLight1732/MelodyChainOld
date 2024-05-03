@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <style>
+      .hide {
+        display: none;
+      }
+    </style>
+    <link rel="manifest" href="./manifest.json" />
+    <title>Document</title>
+  </head>
+
+  <body>
+    <input type="file" accept="image/png" id="image_selector" />
+    <figure id="figure" style="display: none">
+      <img src="" id="figure_image" />
+    </figure>
+    <input type="text" id="name" required maxlength="16" size="10" />
+    <input type="text" id="favorite" required maxlength="16" size="10" />
+    <select id="part_selector">
+      <option value="0">ドラム</option>
+      <option value="1">ベース</option>
+      <option value="2">ギター</option>
+      <option value="3">ボーカル</option>
+    </select>
+    <button id="update">更新</button>
+    <script type="module" src="./importSW.js"></script>
+    <script type="module" src="./js/mypage.js"></script>
+  </body>
+</html>
