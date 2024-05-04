@@ -1,6 +1,4 @@
-import { onAuthStateChanged, redirectToLoginPage } from "./auth.mjs";
-import { auth } from "./initialize.mjs";
-import { signOut } from "firebase/auth";
+import { onAuthStateChanged, redirectToLoginPage, signOut } from "./auth.mjs";
 
 function setup() {
   const button1 = document.getElementById("mypage");
@@ -11,7 +9,7 @@ function setup() {
   const button2 = document.getElementById("logout");
   button2.addEventListener("click", async () => {
     try {
-      await signOut(auth);
+      await signOut();
     } catch (e) {
       console.log(e);
     }

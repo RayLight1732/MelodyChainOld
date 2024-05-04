@@ -2,9 +2,8 @@ import {
   GoogleAuthProvider,
   getRedirectResult,
   signInWithRedirect,
-  signInWithPopup,
 } from "firebase/auth";
-import { onAuthStateChanged } from "./auth.mjs";
+import { onAuthStateChanged, registerToken } from "./auth.mjs";
 import { auth } from "./initialize.mjs";
 
 const provider = new GoogleAuthProvider();
@@ -17,6 +16,11 @@ provider.setCustomParameters({
 function redirectToTopPage() {
   console.log("redirect to top");
   window.location.href = "./top.html";
+}
+
+function onAuthSuccess() {
+  registerToken();
+  //redirectToTopPage();
 }
 
 function login() {
@@ -51,6 +55,7 @@ getRedirectResult(auth)
   });
 
 document.getElementById("login").addEventListener("click", login);
-onAuthStateChanged(redirectToTopPage, () => {
+
+onAuthStateChanged(onAuthSuccess, () => {
   console.log("not logined");
 });

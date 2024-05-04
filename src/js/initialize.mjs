@@ -1,7 +1,8 @@
 import { getApps, getApp, initializeApp } from "firebase/app";
-import { getFirestore } from "firebase/firestore";
+import { doc, getFirestore, serverTimestamp, setDoc } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 import { getStorage } from "firebase/storage";
+import { getMessaging, getToken, onMessage } from "firebase/messaging";
 
 const firebaseConfig = {
   apiKey: "AIzaSyCJMFqxaQixVdqcDa4hUDW26RrVz3_Meow",
@@ -16,6 +17,30 @@ const firebaseApp = !getApps().length
   ? initializeApp(firebaseConfig)
   : getApp();
 
+export function isNotificationGranted() {
+  return Notification.permission === "granted";
+}
+
+export function isNotificationAsked() {
+  return Notification.permission !== "default";
+}
+
 export const db = getFirestore(firebaseApp);
 export const auth = getAuth();
 export const storage = getStorage();
+
+export const messaging = getMessaging(firebaseApp);
+
+Notification.requestPermission().then((permission) => {
+  if (permission === "granted") {
+    // 通知を許可した場合
+    console.log("Notification permission granted.");
+  } else {
+    // 通知を拒否した場合
+    console.log("Unable to get permission to notify.");
+  }
+});
+
+onMessage(messaging, (payload) => {
+  console.log("Message received. ", payload);
+});
