@@ -1,6 +1,13 @@
 import { auth, db, storage } from "./initialize.mjs";
 import { getDownloadURL, uploadBytes, ref } from "firebase/storage";
-import { doc, setDoc, onSnapshot, getDoc } from "firebase/firestore";
+import {
+  doc,
+  setDoc,
+  onSnapshot,
+  getDoc,
+  updateDoc,
+  limit,
+} from "firebase/firestore";
 
 /**
  * プロフィール画像の参照を取得する
@@ -28,7 +35,7 @@ export async function getProfile(uid = auth.currentUser.uid) {
  * @param {File} [image] 画像
  * @returns アップロードが成功した場合true,そうでないならfalse
  */
-export async function uploadProfile(name, favorite, part, image) {
+export async function uploadProfile(name, favorite, part, image, exists) {
   if (auth.currentUser) {
     //画像のアップロード
     try {
@@ -39,12 +46,29 @@ export async function uploadProfile(name, favorite, part, image) {
       }
 
       //ユーザーデータのアップロード
-      await setDoc(doc(db, "users", auth.currentUser.uid), {
-        uid: auth.currentUser.uid,
-        name: name,
-        favorite: favorite,
-        part: part,
-      });
+      const exists = (
+        await getDoc(doc(db, "users", auth.currentUser.uid))
+      ).exists();
+      console.log("exists", exists);
+      if (exists) {
+        await updateDoc(doc(db, "users", auth.currentUser.uid), {
+          uid: auth.currentUser.uid,
+          name: name,
+          favorite: favorite,
+          part: [0, 1, 2, 3],
+        });
+      } else {
+        await setDoc(doc(db, "users", auth.currentUser.uid), {
+          uid: auth.currentUser.uid,
+          name: name,
+          favorite: favorite,
+          part: [0, 1, 2, 3],
+          dispatch: {
+            state: "init",
+            limit: new Date(),
+          },
+        });
+      }
       return true;
     } catch (error) {
       console.error("The profile upload failed.");

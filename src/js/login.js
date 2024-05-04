@@ -14,18 +14,16 @@ provider.setCustomParameters({
 });
 
 function redirectToTopPage() {
-  console.log("redirect to top");
   window.location.href = "./top.html";
 }
 
 function onAuthSuccess() {
   registerToken();
-  //redirectToTopPage();
+  redirectToTopPage();
 }
 
 function login() {
   signInWithRedirect(auth, provider);
-  //signInWithPopup(auth, provider);
 }
 
 getRedirectResult(auth)

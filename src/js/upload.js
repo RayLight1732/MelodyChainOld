@@ -7,18 +7,18 @@ function setup() {
   updateDispatchUI(async (doc) => {
     const uploadDiv = document.getElementById("upload_div");
     const errorField = document.getElementById("error");
-    if (doc.data()) {
+    if (doc.data() && doc.data().dispatch != "None") {
       errorField.style.display = "none";
       uploadDiv.style.display = "block";
       //データが存在=曲が割り当てられていた時
       const name = document.getElementById("name");
-      part = doc.data().part;
+      part = doc.data().dispatch.part;
       name.style.display = part == 3 ? "block" : "none";
 
       try {
         const urls = await getMusicURLs(
-          doc.data().authorIDs,
-          doc.data().previousRefs
+          doc.data().dispatch.authorIDs,
+          doc.data().dispatch.previousRefs
         );
         for (const url of urls) {
           //TODO 表示

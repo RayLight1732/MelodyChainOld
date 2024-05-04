@@ -25,10 +25,7 @@ function getMusicRef() {
  * @returns
  */
 export function updateDispatchUI(onSnapshotCallback) {
-  return onSnapshot(
-    doc(db, "dispatch", auth.currentUser.uid),
-    onSnapshotCallback
-  );
+  return onSnapshot(doc(db, "users", auth.currentUser.uid), onSnapshotCallback);
 }
 
 /**
