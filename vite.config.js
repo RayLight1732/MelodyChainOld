@@ -11,6 +11,8 @@ export default {
         top: "/top.html",
         mypage: "/mypage.html",
         upload: "/upload.html",
+        plofileEdit: "/profileEdit.html",
+        songDetail: "/songDetail.html",
       },
       output: {
         entryFileNames: "[name].js",

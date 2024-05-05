@@ -11,6 +11,7 @@ import {
   startAfter as funcStartAfter,
   setDoc,
   updateDoc,
+  getDoc,
 } from "firebase/firestore";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 
@@ -68,15 +69,16 @@ export async function uploadMusic(musicFile, name, thumbnail) {
  * @returns {Array<URL>} ダウンロード用URLの配列
  */
 export async function getMusicURLs(authorIDs, refs) {
-  try {
-    console.log(authorIDs);
-    const promises = authorIDs.map((authorID, index) =>
-      getDownloadURL(ref(storage, `users/${authorID}/music/${refs[index]}`))
+  console.log("auth ref", authorIDs, refs);
+  const urls = [];
+  for (var i = 0; i < authorIDs.length; i++) {
+    const url = await getDownloadURL(
+      ref(storage, `users/${authorIDs[i]}/music/${refs[i]}`)
     );
-    return await Promise.all(promises);
-  } catch (error) {
-    throw error;
+    urls.push(url);
   }
+  console.log("urls", urls);
+  return urls;
 }
 
 /**
@@ -84,8 +86,8 @@ export async function getMusicURLs(authorIDs, refs) {
  * @param {string} ref サムネイルの参照
  * @returns {URL} ダウンロード用URL
  */
-export async function getThumbnailURL(ref) {
-  return await getDownloadURL(ref(storage, ref));
+export async function getThumbnailURL(ref_) {
+  return await getDownloadURL(ref(storage, ref_));
 }
 
 /**
@@ -124,6 +126,10 @@ export async function getMusic(limit = 10, startAfter) {
     }
   })();
   return await getDocs(q);
+}
+
+export async function getMusicDetail(musicId) {
+  return await getDoc(doc(db, "music", musicId));
 }
 
 /**

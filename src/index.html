@@ -1,13 +1,26 @@
 <!DOCTYPE html>
-<html lang="jp">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>MelodyChain</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="manifest" href="./manifest.json" />
+    <title>Document</title>
+    <!-- reset.css ress -->
+    <link rel="stylesheet" href="https://unpkg.com/ress/dist/ress.min.css" />
+    <link rel="stylesheet" href="../css/styles.css" />
   </head>
+
   <body>
-    <button id="login">ログイン</button>
+    <div class="menu-logo"><img src="../img/ロゴ.png" alt="" /></div>
+    <div class="mail">
+      <input class="mailadd" type="text" placeholder="メールアドレス" />
+    </div>
+    <div class="pass"><input type="password" placeholder="パスワード" /></div>
+    <button class="login" type="submit">ログイン</button>
+    <div class="center_container"><span class="horazion"></span></div>
+    <div>
+      <a href="#" class="sns-login-btn-google" id="login">Googleで続ける</a>
+    </div>
+    <div id="error-message" style="display: none; color: red"></div>
     <script>
       if ("serviceWorker" in navigator) {
         navigator.serviceWorker

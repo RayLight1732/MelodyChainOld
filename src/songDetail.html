@@ -1,11 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ja">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-    <!-- reset.css ress -->
-    <link rel="stylesheet" href="https://unpkg.com/ress/dist/ress.min.css" />
+    <title>Sample Website</title>
     <link rel="stylesheet" href="../css/styles.css" />
     <link
       rel="stylesheet"
@@ -22,10 +20,27 @@
       <div class="logo right-logo"><img src="../img/bell.png" alt="" /></div>
     </header>
     <!-- ヘッダー -->
-    <!-- サムネ-タイトル -->
-
-    <div class="video-gallery" id="video-gallery"></div>
-
+    <div id="scrollable-container" class="scrollable-container">
+      <div>
+        <div id="note-part"></div>
+        <div class="media-list-top" id="media-list-top"></div>
+        <div class="hoge" id="upload_div" style="display: none">
+          <button
+            onclick="location.href='./upload.html'"
+            class="Transition-to-upload"
+          >
+            <img
+              src="../img/+++.png"
+              alt=""
+              class="Transition-to-upload-image"
+            />
+          </button>
+        </div>
+      </div>
+      <div id="error" style="display: none">
+        割り当てられたリレーは存在しません
+      </div>
+    </div>
     <footer id="footer">
       <div>
         <a href="./top.html">
@@ -55,6 +70,6 @@
           });
       }
     </script>
-    <script type="module" src="./js/top.js"></script>
+    <script src="./js/songDetail.js" type="module"></script>
   </body>
 </html>

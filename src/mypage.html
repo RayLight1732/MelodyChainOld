@@ -1,32 +1,105 @@
 <!DOCTYPE html>
-<html>
+<html lang="ja">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <style>
-      .hide {
-        display: none;
-      }
-    </style>
-    <link rel="manifest" href="./manifest.json" />
-    <title>Document</title>
+    <title>Sample Website</title>
+    <link rel="stylesheet" href="../css/styles.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap"
+      rel="stylesheet"
+    />
   </head>
-
   <body>
-    <input type="file" accept="image/png" id="image_selector" />
-    <figure id="figure" style="display: none">
-      <img src="" id="figure_image" />
-    </figure>
-    <input type="text" id="name" required maxlength="16" size="10" />
-    <input type="text" id="favorite" required maxlength="16" size="10" />
-    <select id="part_selector">
-      <option value="0">ドラム</option>
-      <option value="1">ベース</option>
-      <option value="2">ギター</option>
-      <option value="3">ボーカル</option>
-    </select>
-    <button id="update">更新</button>
+    <!-- ヘッダー -->
+    <header id="header">
+      <div class="logo left-logo">
+        <img src="../img/ロゴ.png" alt="" class="small-logo" />
+      </div>
+      <div class="logo right-logo"><img src="../img/bell.png" alt="" /></div>
+    </header>
+    <!-- ヘッダー -->
+
+    <!-- メインコンテンツ -->
+    <div class="profile-view" id="profile-view">
+      <div id="main-content">
+        <div class="header-image" id="header-image">
+          <img
+            src="../img/header.png"
+            alt="ヘッダー画像"
+            id="header-image-pic"
+            class="header-image-pic"
+          />
+          <img
+            id="profile-image"
+            src="../img/profile.png"
+            alt="プロフィール画像"
+            class="profile-pic"
+          />
+        </div>
+        <div class="profile-container">
+          <div class="profile-info">
+            <i
+              class="fa fa-pencil edit-icon fa-2x"
+              id="edit-profile"
+              style="display: none"
+            ></i>
+            <div class="info">
+              <p>
+                <span class="label">ニックネーム：</span
+                ><span id="nickname-value" class="value"
+                  >ユーザーニックネーム</span
+                >
+              </p>
+              <p>
+                <span class="label">推し：</span
+                ><span id="favorite-value" class="value">ユーザーの推し</span>
+              </p>
+              <button
+                type="button"
+                id="signout"
+                style="display: none"
+                class="logout-button"
+              >
+                サインアウト
+              </button>
+            </div>
+          </div>
+
+          <div class="past-works">
+            <h3>過去の作品</h3>
+            <!-- ここに画像が並ぶ -->
+          </div>
+          <div class="past-works-container" id="past-works-container"></div>
+        </div>
+      </div>
+      <div id="loading"></div>
+    </div>
+
+    <footer id="footer">
+      <div>
+        <a href="./top.html">
+          <img src="../img/home.png" alt="top" />
+        </a>
+      </div>
+      <div>
+        <a href="./songDetail.html">
+          <img src="../img/headphones.png" alt="detail" />
+        </a>
+      </div>
+      <div>
+        <a href="./mypage.html">
+          <img id="footer-icon" alt="profile" />
+        </a>
+      </div>
+    </footer>
+
     <script>
       if ("serviceWorker" in navigator) {
         navigator.serviceWorker
@@ -40,5 +113,6 @@
       }
     </script>
     <script type="module" src="./js/mypage.js"></script>
+    <!-- フッター -->
   </body>
 </html>

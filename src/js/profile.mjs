@@ -15,7 +15,11 @@ import {
  * @returns プロフィール画像の参照
  */
 export function getProfileImageRef(uid = auth.currentUser.uid) {
-  return ref(storage, "users/" + uid + "/profile.png");
+  return ref(storage, "users/" + uid + "/profile");
+}
+
+export function getHeaderImageRef(uid = auth.currentUser.uid) {
+  return ref(storage, "users/" + uid + "/header");
 }
 
 /**
@@ -33,16 +37,30 @@ export async function getProfile(uid = auth.currentUser.uid) {
  * @param {string} favorite 好きなバンド
  * @param {number} part パート(0:)
  * @param {File} [image] 画像
+ * @param {File} [header] ヘッダー画像
  * @returns アップロードが成功した場合true,そうでないならfalse
  */
-export async function uploadProfile(name, favorite, part, image, exists) {
+export async function uploadProfile(name, favorite, part, image, header) {
   if (auth.currentUser) {
     //画像のアップロード
     try {
       if (image) {
-        await uploadBytes(getProfileImageRef(), image).then((snapshot) => {
-          console.log("The image upload was successful.");
-        });
+        uploadBytes(getProfileImageRef(), image)
+          .then((snapshot) => {
+            console.log("The image upload was successful.");
+          })
+          .catch((error) => {
+            console.error("error upload image", error);
+          });
+      }
+      if (header) {
+        uploadBytes(getHeaderImageRef(), header)
+          .then((snapshot) => {
+            console.log("The header image upload was successful.");
+          })
+          .catch((error) => {
+            console.error("error upload header image", error);
+          });
       }
 
       //ユーザーデータのアップロード
@@ -55,14 +73,14 @@ export async function uploadProfile(name, favorite, part, image, exists) {
           uid: auth.currentUser.uid,
           name: name,
           favorite: favorite,
-          part: [0, 1, 2, 3],
+          part: part,
         });
       } else {
         await setDoc(doc(db, "users", auth.currentUser.uid), {
           uid: auth.currentUser.uid,
           name: name,
           favorite: favorite,
-          part: [0, 1, 2, 3],
+          part: part,
           dispatch: {
             state: "init",
             limit: new Date(),
@@ -106,4 +124,20 @@ export function updateProfileUI(
  */
 export async function getProfileImageUrl(uid = auth.currentUser.uid) {
   return await getDownloadURL(getProfileImageRef(uid));
+}
+
+export async function getHeaderImageUrl(uid = auth.currentUser.uid) {
+  return await getDownloadURL(getHeaderImageRef(uid));
+}
+
+export function setFooterIcon() {
+  getProfileImageUrl()
+    .then((url) => {
+      console.log("set footer icon");
+      document.getElementById("footer-icon").src = url;
+      document.getElementById("footer-icon").style.display = "block";
+    })
+    .catch((error) => {
+      console.warn("error in getting profile url", error);
+    });
 }

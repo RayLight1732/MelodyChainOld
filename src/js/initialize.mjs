@@ -4,6 +4,14 @@ import { getAuth } from "firebase/auth";
 import { getStorage } from "firebase/storage";
 import { getMessaging, getToken, onMessage } from "firebase/messaging";
 
+export const getQueryParam = (key) => {
+  const value = window.location.href.match(
+    new RegExp("[?&]" + key + "=(.*?)(&|$|#)")
+  );
+  if (value == null) return "";
+  return decodeURIComponent(value[1]);
+};
+
 const firebaseConfig = {
   apiKey: "AIzaSyCJMFqxaQixVdqcDa4hUDW26RrVz3_Meow",
   authDomain: "melody-chain.firebaseapp.com",

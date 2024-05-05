@@ -21,10 +21,28 @@ onBackgroundMessage(messaging, (payload) => {
     payload
   );
   // Customize notification here
-  const notificationTitle = "Background Message Title";
-  const notificationOptions = {
-    body: "Background Message body.",
-  };
+  const data = payload.data;
+  if (data) {
+    if (data.type == "0") {
+      const notificationTitle = "楽曲完成通知";
+      const notificationOptions = {
+        body: data.text,
+      };
 
-  self.registration.showNotification(notificationTitle, notificationOptions);
+      self.registration.showNotification(
+        notificationTitle,
+        notificationOptions
+      );
+    } else if (data.type == "1") {
+      const notificationTitle = "楽曲割り当て通知";
+      const notificationOptions = {
+        body: data.text,
+      };
+
+      self.registration.showNotification(
+        notificationTitle,
+        notificationOptions
+      );
+    }
+  }
 });

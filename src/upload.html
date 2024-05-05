@@ -1,28 +1,122 @@
 <!DOCTYPE html>
-<html>
+<html lang="ja">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <style>
-      .hide {
-        display: none;
-      }
-    </style>
-    <link rel="manifest" href="./manifest.json" />
-    <title>Document</title>
+    <title>Sample Website</title>
+    <link rel="stylesheet" href="../css/styles.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
   </head>
-
   <body>
+    <!-- ヘッダー -->
+    <header>
+      <div class="logo left-logo">
+        <img src="../img/ロゴ.png" alt="" class="small-logo" />
+      </div>
+      <div class="logo right-logo"><img src="../img/bell.png" alt="" /></div>
+    </header>
+    <!-- ヘッダー -->
+
+    <!-- メインコンテンツ -->
     <div id="upload_div" style="display: none">
-      <input type="file" id="selector" />
-      <input type="text" id="name" required maxlength="16" size="10" />
-      <button id="upload">投稿</button>
-      <script type="module" src="./js/upload.js"></script>
+      <div class="file-upload">
+        <div class="upload-icon">
+          <i class="fa fa-upload"></i>
+        </div>
+        <p>アップロードするファイルを選択してください。</p>
+        <input
+          type="file"
+          id="fileInput"
+          style="display: none"
+          accept="audio/mp3"
+        />
+        <label for="fileInput" class="upload-button">ファイルを選択</label>
+      </div>
+      <div id="name-thumbnail" style="display: none">
+        <div class="title">
+          <input
+            type="text"
+            id="title_input"
+            placeholder="タイトルを入力"
+            required
+          />
+        </div>
+
+        <div class="samune-change">下にサムネイルを追加↓</div>
+
+        <div class="samune">
+          <div class="thumbnail-container">
+            <input
+              type="file"
+              id="thumbnail_input"
+              accept="image/*"
+              style="display: none"
+            />
+            <label for="thumbnail_input">
+              <img
+                src="../img/Rectangle 7.png"
+                alt="サムネイル画像"
+                class="samune-pic"
+                id="samune-image"
+              />
+            </label>
+          </div>
+        </div>
+      </div>
+      <div id="upload">
+        <button type="submit">アップロード</button>
+        <!-- <button class="play-button-samune" for="fileinput"><img src="../img/+.png" alt="再生ボタン"></button> -->
+      </div>
     </div>
-    <div id="error" style="display: none">
-      割り当てられているリレーはありません
-    </div>
+
+    <!-- 追加 -->
+    <div id="error">現在割り当てられているリレーは存在しません</div>
+
+    <!-- フッター -->
+
+    <footer id="footer">
+      <div>
+        <a href="./top.html">
+          <img src="../img/home.png" alt="top" />
+        </a>
+      </div>
+      <div>
+        <a href="./songDetail.html">
+          <img src="../img/headphones.png" alt="detail" />
+        </a>
+      </div>
+      <div>
+        <a href="./mypage.html">
+          <img id="footer-icon" alt="profile" />
+        </a>
+      </div>
+    </footer>
+
+    <!-- <div>
+            <a href="../top画面/top.html">
+              <img src="../img/home.png" alt="top" />
+            </a>
+          </div>
+          <div>
+            <a href="../楽曲詳細確認画面/楽曲詳細.html">
+              <img src="../img/headphones.png" alt="detail" />
+            </a>
+          </div>
+          <div>
+            <a href="../プロフィール画面/プロフィール画面.html">
+              <img src="profile-image" alt="profile" />
+            </a>
+          </div> -->
+
+    <!-- <div class="footer-icon" id="up-arrow"><i class="fa fa-arrow-up"></i></div>
+        <div class="footer-icon" id="headphones"><i class="fa fa-headphones"></i></div>
+        <div class="footer-icon" id="plus"><i class="fa fa-plus"></i></div>
+        <div class="footer-icon" id="art"><img src="path_to_your_art_image.jpg" alt="Art"></div> -->
+    <!-- </footer> -->
+    <!-- フッター -->
     <script>
       if ("serviceWorker" in navigator) {
         navigator.serviceWorker
@@ -35,6 +129,6 @@
           });
       }
     </script>
-    <script type="module" src="./js/upload.js"></script>
+    <script src="./js/upload.js" type="module"></script>
   </body>
 </html>

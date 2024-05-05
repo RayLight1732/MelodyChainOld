@@ -1,0 +1,771 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  /* padding-top: 60px; 
+  padding-bottom: 60px;  */
+  overflow: hidden;
+}
+
+header {
+  position: fixed; /* ヘッダーを固定 */
+  top: 0; /* 上端に固定 */
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  border-bottom: 2px solid #ccc;
+  background-color: white; /* 背景色を白に設定 */
+  z-index: 1000; /* 他の要素より前面に表示 */
+}
+
+.small-logo {
+  width: 90px; /* 画像の幅を200ピクセルに設定 */
+  height: auto; /* 高さは自動的に調整 */
+}
+
+footer {
+  position: fixed; /* フッターを固定 */
+  bottom: 0; /* 下端に固定 */
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 10px;
+  background-color: white;
+  border-top: 2px solid #ccc;
+  z-index: 1000; /* 他の要素より前面に表示 */
+}
+
+.footer-icon {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f0f0f0;
+  border-radius: 50%;
+  cursor: pointer;
+}
+footer button {
+  background: none;
+  border: none;
+  padding: 0;
+  outline: none;
+}
+
+.footer-icon img {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.footer-icon:hover {
+  background-color: #e0e0e0;
+}
+/* フッターはここまで */
+.menu-logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 400px;
+  margin-top: 30px;
+}
+.mail {
+  width: 70%;
+  margin: 0 auto;
+}
+.pass {
+  width: 70%;
+  margin: 0 auto;
+}
+.login {
+  color: #ffffff;
+  display: block;
+  width: fit-content;
+  margin: 40px auto;
+  font-size: 20px;
+  border: 2px solid #5b5b5b;
+  background-color: #5b5b5b;
+  border-radius: 4%;
+  width: 100px;
+  height: 40px;
+}
+.center_container {
+  text-align: center;
+}
+.horazion {
+  display: inline-block;
+  width: 60%;
+  height: 10px;
+  border-bottom: 2px solid #888888;
+}
+
+/* 親要素のスタイル */
+.parent-container {
+  position: relative; /* ポジショニングコンテキストを提供 */
+  height: 100vh; /* 親要素が画面全体の高さを占めるように設定 */
+}
+
+/* ボタンのスタイル */
+.sns-login-btn-google {
+  padding: 0.5em;
+  color: #898989 !important;
+  background: #ffffff;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 18px;
+  border-radius: 3px;
+  border: solid;
+  border-color: #898989;
+  border-width: 0.5px;
+  position: absolute; /* 絶対位置指定 */
+  top: 85%; /* 上端から50%の位置 */
+  left: 50%; /* 左端から50%の位置 */
+  transform: translate(-50%, -50%); /* 自身のサイズに基づいて50%戻る */
+  display: inline-block;
+}
+
+.sns-login-btn-google:before {
+  content: "";
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  background: url("https://developers.google.com/identity/images/g-logo.png?hl=ja")
+    no-repeat;
+  background-size: contain;
+  vertical-align: middle;
+  margin-right: 24px;
+}
+
+@media screen and (min-width: 768px) {
+  .sns-login-btn-google {
+    padding: 0.5em 0.6em;
+    font-size: 20px;
+  }
+}
+
+.mailadd,
+input[type="password"] {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+.file-upload {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 20px;
+}
+
+.upload-icon {
+  font-size: 60px; /* アイコンのサイズ */
+  margin-top: 150px;
+  margin-bottom: 50px;
+}
+
+p {
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.upload-button {
+  padding: 10px 20px;
+  font-size: 16px;
+  color: white;
+  background-color: #007bff; /* 青色 */
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.profile-view {
+  overflow: auto;
+  background-image: url("path_to_background_image.jpg");
+  background-size: cover;
+  background-position: center;
+  color: #333;
+}
+
+.profile-container {
+  padding-top: 20vw;
+}
+
+.header-image {
+  width: 100vw;
+  position: relative;
+}
+
+.header-image-pic {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.profile-info {
+  margin: 0px 7%;
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.profile-pic {
+  position: absolute;
+  top: 80%;
+  left: 10%;
+  height: 50%;
+}
+
+.edit-icon {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  cursor: pointer;
+  font-size: 24px;
+  color: #666;
+}
+
+.info p {
+  margin-top: 40px;
+  font-family: "Inter", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: weight;
+  font-style: normal;
+  font-variation-settings: "slnt" 0;
+}
+
+.label {
+  font-weight: bold;
+}
+
+.past-works {
+  margin: 2% 7%;
+}
+
+.past-works-container {
+  flex-direction: column;
+  align-items: center;
+  display: flex;
+  justify-content: space-around;
+}
+
+/* #upload-box {
+  width: 100%;
+  height: 230px;
+  border: 2px dashed #ccc;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  background-color: #f9f9f9;
+  margin-top: 40px;
+}
+
+#icon-wrapper {
+  display: block;
+  /* width: 10px;
+  height: 10px; 
+  border-radius: 50%;
+  justify-content: center;
+  align-items: center;
+  background-color: #ddd;
+  cursor: pointer;
+  position: absolute;
+}
+
+#upload-icon {
+  width: 30px;
+  height: 30px;
+}
+
+#upload-box label {
+  cursor: pointer;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#header-area {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+} */
+
+/* #rectangle {
+  width: 100%; 
+  height: 250px; 
+  background-color: #f9f9f9; 
+  display: flex;
+  justify-content: center; 
+  align-items: center; /
+  border: 2px solid #ccc; 
+  position: relative; 
+  margin-top: 40px;
+  align-items: center;
+}
+
+#circle {
+  width: 100px; 
+  height: 100px; 
+  background-color: #ddd; 
+  border-radius: 50%; 
+  align-self: center;
+} */
+
+#rectangle {
+  width: 100%; /* 長方形の幅 */
+  height: 250px; /* 長方形の高さ */
+  background-color: #f9f9f9; /* 長方形の背景色 */
+  display: flex;
+  justify-content: center; /* 中央に要素を配置 */
+  align-items: center; /* 中央に要素を配置 */
+  border: 2px solid #ccc; /* 長方形の枠線 */
+  position: relative; /* 子要素の位置指定の基準点 */
+  margin-top: 40px;
+}
+
+#circle {
+  /* margin: auto; */
+  width: 20vw; /* 円の幅 */
+  height: 20vw; /* 円の高さ */
+  background-color: #ddd; /* 円の背景色 */
+  border-radius: 50%; /* 円形にする */
+  display: flex; /* フレックスボックスを使用 */
+  justify-content: center; /* 中央に要素を配置 */
+  align-items: center; /* 中央に要素を配置 */
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  position: absolute;
+}
+
+#circle::before {
+  content: "+"; /* プラス記号 */
+  font-size: 30px; /* プラス記号のサイズ */
+  color: black; /* プラス記号の色 */
+}
+
+.setting,
+select {
+  width: 90%; /* 入力フィールドの幅 */
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-top: 40px;
+}
+
+button[type="submit"] {
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #e027d7;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  display: block;
+  width: fit-content;
+  margin: 40px auto;
+}
+
+button[type="submit"]:hover {
+  background-color: #45a049; /* ホバー時の色変更 */
+}
+
+.media-list-top {
+  margin-top: 25%;
+}
+.media-list {
+  padding: 10px;
+  background-color: #ffffff; /* リストの背景色 */
+  height: 90px;
+}
+
+.media-list ul {
+  list-style: none;
+  /* padding: 0; */
+  /* margin-top: px; */
+}
+
+.media-item {
+  display: flex;
+  align-items: center;
+  margin-top: 50px;
+  padding-bottom: 5px; /* アイテム下に余白を追加 */
+  /* border-bottom: 1px solid #7a7a7a; 下線を追加 */
+}
+
+.user-icon {
+  width: 50px; /* アイコンのサイズ */
+  height: 50px;
+  border-radius: 50%; /* 円形 */
+  margin-right: 10px;
+}
+
+.part-name {
+  flex-grow: 1;
+  /* margin-right: 100px; */
+  text-align: center;
+  margin-right: 25px;
+}
+
+.play-button {
+  font-size: 30px;
+  margin-right: 25px;
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+.hoge {
+  display: flex;
+  justify-content: center; /* 水平方向の中央揃え */
+  align-items: center; /* 垂直方向の中央揃え */
+  height: 300px; /* もしページ全体の高さに対して中央にしたい場合 */
+}
+
+.Transition-to-upload {
+  background: none; /* 背景を透明に */
+  border: none; /* 枠線を削除 */
+  padding: 0; /* パディングを0に */
+  cursor: pointer; /* ホバー時にカーソルをポインターに */
+  border-radius: 50%;
+  border: 2px solid rgb(78, 78, 78); /* 円の境界線 */
+  background-color: white; /* 背景色は任意で調整可能 */
+}
+.Transition-to-upload-image {
+  text-align: center;
+  border-radius: 50%; /* これにより画像が円形に見える */
+  width: 100px; /* 画像の幅を設定 */
+  height: 100px; /* 画像の高さを設定 */
+  object-fit: cover; /* 画像のアスペクト比を保持しつつフィットさせる */
+}
+.title {
+  width: 70%;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #ffffff;
+  margin-top: 40px;
+  justify-content: center; /*水平方向に中央揃え  */
+}
+.samune-change {
+  text-align: center;
+  margin-top: 10px;
+}
+input[type="title"] {
+  width: 80%;
+  padding: 10px;
+  margin: 30px 0;
+  margin-right: 20px;
+  display: inline-block;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+.samune {
+  background-color: #ffffff;
+  margin-bottom: 50px;
+
+  display: flex; /* フレックスコンテナを設定 */
+  align-items: center; /* 中央揃え */
+  background-color: #ffffff;
+  /* margin-bottom: 100px; */
+  position: relative; /* ボタンの絶対位置の基準点 */
+}
+
+.thumbnail-container {
+  width: 100%;
+  height: 200px;
+}
+.samune-pic {
+  width: 100%;
+  height: 200px;
+  max-width: 100%;
+  max-height: 100%;
+  /* margin-top: 20px; */
+}
+
+.play-button-samune {
+  position: absolute;
+  right: 20px;
+  top: 65%;
+  transform: translateY(-50%);
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+/* 必要に応じて追加のスタイリング */
+
+/* .samune.pic img {
+  width: 100%;
+  height: auto;
+  overflow: hidden;
+  width: 372px;
+  height: 250px;
+  margin-top: 0px;
+}  */
+
+.play-button2 {
+  position: absolute; /* 絶対位置指定 */
+  top: 85%; /* 上端から50%の位置 */
+  left: 80%; /* 左端から50%の位置 */
+  font-size: 30px;
+}
+/* top.css */
+.video-gallery {
+  overflow: auto;
+  display: flex;
+  flex-direction: column; /* コンテナの項目を縦に並べる */
+  align-items: center; /* アイテムを中央に配置 */
+  justify-content: space-around;
+  width: 100%;
+}
+
+.video-item {
+  width: 90%;
+  background-color: white;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.video-item p {
+  text-align: center;
+  color: #333;
+}
+
+.splash-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  /* ページ全体を覆う */
+  width: 100%;
+  height: 100%;
+  background-color: #ffffff;
+  /* 白背景 */
+  z-index: 5;
+  /* ヘッダーより上に表示 */
+}
+
+#loading-text {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  font-family: "Koulen", sans-serif;
+  color: #000;
+  font-size: 40px;
+  font-family: kaisei HarunoUmi;
+  /* 他のスタイル設定 */
+}
+
+#loading-text span {
+  display: inline-block;
+  /* 他のスタイル設定があればここに追加 */
+  animation: wave-animation 2s infinite ease-in-out;
+}
+
+/* ウェーブアニメーションのキーフレーム */
+@keyframes wave-animation {
+  0%,
+  10%,
+  20%,
+  90%,
+  100% {
+    transform: translateY(0px);
+  }
+
+  30% {
+    transform: translateY(-20px);
+  }
+
+  40%,
+  50%,
+  60% {
+    transform: translateY(0px);
+  }
+
+  70% {
+    transform: translateY(20px);
+  }
+
+  80% {
+    transform: translateY(0px);
+  }
+}
+
+/* アニメーションの遅延を個別に設定 */
+#loading-text span:nth-child(1) {
+  animation-delay: 0s;
+}
+
+#loading-text span:nth-child(2) {
+  animation-delay: 0.1s;
+}
+
+#loading-text span:nth-child(3) {
+  animation-delay: 0.2s;
+}
+
+#loading-text span:nth-child(4) {
+  animation-delay: 0.3s;
+}
+
+#loading-text span:nth-child(5) {
+  animation-delay: 0.4s;
+}
+
+#loading-text span:nth-child(6) {
+  animation-delay: 0.5s;
+}
+
+#loading-text span:nth-child(7) {
+  animation-delay: 0.6s;
+}
+
+#loading-text span:nth-child(8) {
+  animation-delay: 0.7s;
+}
+
+#loading-text span:nth-child(9) {
+  animation-delay: 0.8s;
+}
+
+#loading-text span:nth-child(10) {
+  animation-delay: 0.9s;
+}
+
+/* 追加作成　アイコン挿入 */
+/* .file__label {
+  display: block;
+  font-size: 16px;
+  line-height: 1.5;
+  text-align: center;
+  width: min(100%, 350px);
+  padding: 1.5em 0.5em;
+  margin-inline: auto;
+  color: #fff;
+  background-color: #ffa620;
+  cursor: pointer;
+  transition: opacity 0.3s ease;
+}
+
+.file__label:hover {
+  opacity: 0.7;
+} */
+
+input[type="file"] {
+  display: none;
+}
+
+.toggle_input {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 5;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.toggle_label {
+  width: 75px;
+  height: 35px;
+  background: #ccc;
+  position: relative;
+  display: inline-block;
+  border-radius: 40px;
+  transition: 0.4s;
+  box-sizing: border-box;
+}
+
+.toggle_label:after {
+  content: "";
+  position: absolute;
+  width: 35px;
+  height: 35px;
+  border-radius: 100%;
+  left: 0;
+  top: 0;
+  z-index: 2;
+  background: #fff;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+  transition: 0.4s;
+}
+
+.toggle_input:checked + .toggle_label {
+  background-color: #4bd865;
+}
+
+.toggle_input:checked + .toggle_label:after {
+  left: 40px;
+}
+
+.toggle_button {
+  position: relative;
+  width: 75px;
+  height: 35px;
+  margin: auto 0;
+}
+.part-input {
+  width: 100%;
+  height: 40px;
+  padding: 7px;
+  display: flex;
+  position: relative;
+}
+
+.part-input p {
+  vertical-align: middle;
+  margin: auto 0;
+  padding-left: 10px;
+}
+
+.scrollable-container {
+  overflow: auto;
+  color: #333;
+  width: 100%;
+}
+.profile-input {
+  margin: 0px 40px;
+}
+
+#note-part {
+  margin: 30px 0px;
+  text-align: center;
+}
+/* ボタンが無効化されているときのスタイル */
+#upload button:disabled {
+  background-color: #ccc; /* 灰色 */
+  color: #666; /* 濃い灰色のテキスト */
+}
+
+#footer-icon {
+  width: 65px;
+  height: 65px;
+  object-fit: cover;
+}
+
+.logout-button {
+  padding: 10px 20px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.logout-button:hover {
+  background-color: #45a049;
+}

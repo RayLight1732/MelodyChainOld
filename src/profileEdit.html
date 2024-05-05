@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sample Website</title>
+    <link rel="stylesheet" href="../css/styles.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <!-- Firebase and other JavaScript resources -->
+    <!-- <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-auth.js"></script>
+    <script type="module" src="./initialize.mjs"></script>
+    <script type="module" src="./auth.mjs"></script> -->
+  </head>
+  <body>
+    <header id="header">
+      <div class="logo left-logo">
+        <img src="../img/ロゴ.png" alt="" class="small-logo" />
+      </div>
+      <div class="logo right-logo"><img src="../img/bell.png" alt="" /></div>
+    </header>
+
+    <div id="scrollable-container" class="scrollable-container">
+      <!-- ファイル選択関連 -->
+      <!-- <div id="upload-box">
+        <input type="file" id="header-input" hidden />
+        <label for="header-input" id="header-area">
+          ヘッダーファイルを選択
+          <input type="file" id="file-input" hidden />
+          <label for="file-input" id="icon-wrapper">
+            <img src="upload-icon.png" alt="Upload Icon" id="upload-icon" />
+          </label>
+        </label>
+      </div> -->
+      <!-- <div id="rectangle"> -->
+      <!-- <div id="circle"></div> -->
+      <!-- </div> -->
+      <div class="header-image" id="header-image">
+        <img
+          src="../img/header.png"
+          alt="ヘッダー画像"
+          id="header-image-pic"
+          class="header-image-pic"
+        />
+        <div id="circle"></div>
+      </div>
+      <div class="profile-input" id="profile-input" style="display: none">
+        <input
+          class="setting"
+          type="text"
+          id="name"
+          placeholder="ニックネーム"
+          required
+        />
+        <input
+          class="setting"
+          type="text"
+          id="favorite"
+          placeholder="推し"
+          required
+        />
+        <!-- 変更: selectのnameをidに合わせて変更、複数選択不可に変更 -->
+        <div class="part-input">
+          <div class="toggle_button">
+            <input id="drum" class="toggle_input" type="checkbox" />
+            <label for="drum" class="toggle_label" />
+          </div>
+          <p>ドラム</p>
+        </div>
+        <div class="part-input">
+          <div class="toggle_button">
+            <input id="base" class="toggle_input" type="checkbox" />
+            <label for="base" class="toggle_label" />
+          </div>
+          <p>ベース</p>
+        </div>
+        <div class="part-input">
+          <div class="toggle_button">
+            <input id="guiter" class="toggle_input" type="checkbox" />
+            <label for="guiter" class="toggle_label" />
+          </div>
+          <p>ギター</p>
+        </div>
+        <div class="part-input">
+          <div class="toggle_button">
+            <input id="melody" class="toggle_input" type="checkbox" />
+            <label for="melody" class="toggle_label" />
+          </div>
+          <p>メロディー</p>
+        </div>
+      </div>
+
+      <button id="update" type="submit">音楽の世界へようこそ！</button>
+      <!-- </form> -->
+
+      <!-- 画像選択と表示 -->
+      <!-- <input style="display: block;" type="file" id="image_selector1" accept="image/*">
+        <figure id="figure" style="display: none;">
+            <img id="figure_image" src="" alt="Profile Image">
+        </figure> -->
+    </div>
+
+    <!-- フッター -->
+    <footer id="footer">
+      <div>
+        <a href="./top.html">
+          <img src="../img/home.png" alt="top" />
+        </a>
+      </div>
+      <div>
+        <a href="./songDetail.html">
+          <img src="../img/headphones.png" alt="detail" />
+        </a>
+      </div>
+      <div>
+        <a href="./mypage.html">
+          <img id="footer-icon" alt="profile" />
+        </a>
+      </div>
+    </footer>
+
+    <script>
+      if ("serviceWorker" in navigator) {
+        navigator.serviceWorker
+          .register("./sw.js")
+          .then((registration) => {
+            console.log("ServiceWorker registration successful.");
+          })
+          .catch((err) => {
+            console.log("ServiceWorker registration failed.");
+          });
+      }
+    </script>
+    <script type="module" src="./js/profileEdit.js"></script>
+  </body>
+</html>

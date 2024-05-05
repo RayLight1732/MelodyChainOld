@@ -1,78 +1,128 @@
-import { onAuthStateChanged } from "./auth.mjs";
+import { onAuthStateChanged, redirectToLoginPage, signOut } from "./auth.mjs";
+import { auth, getQueryParam } from "./initialize.mjs";
 import { getInvolvedMusic, getMusicURLs } from "./music.mjs";
-import {
-  updateProfileUI,
-  uploadProfile,
-  getProfileImageUrl,
-} from "./profile.mjs";
+import { createVideoImage } from "./musiclist";
+import { getProfile, setFooterIcon } from "./profile.mjs";
 
-const redirectHandler = () => (window.location.href = "http://localhost:3000");
-async function setup() {
-  //画像選択用UIにイベントリスナーを追加
-  const imageSelector = document.getElementById("image_selector");
-  const figureImage = document.getElementById("figure_image");
-  const figure = document.getElementById("figure");
-  imageSelector.addEventListener("change", (event) => {
-    //画像が選択されたことを表すプロパティ
-    imageSelector.changed = true;
-    const [file] = event.target.files;
-    if (file) {
-      figureImage.setAttribute("src", URL.createObjectURL(file));
-      figure.style.display = "block";
-    } else {
-      figure.style.display = "none";
-    }
-  });
+function resizeHeaderImage() {
+  const element = document.getElementById("header-image");
+  //const img = element.getElementsByTagName("img")[0];
+  element.style.height = `${element.clientWidth * 0.6}px`;
+}
 
-  try {
-    //プロフィール画像のURLを取得し、取得に成功したら表示する
-    const url = await getProfileImageUrl();
-    if (url) {
-      figureImage.setAttribute("src", url);
-      figure.style.display = "block";
-    } else {
-      figure.style.display = "none";
-    }
-  } catch (error) {
-    console.error("Failed to retrieve the profile image.");
-    console.log(error);
+function resizeProfileView() {
+  console.log("resize profile view");
+  const header = document.getElementById("header");
+  const footer = document.getElementById("footer");
+  const profileView = document.getElementById("profile-view");
+  profileView.style.height = `${
+    window.innerHeight - header.clientHeight - footer.clientHeight
+  }px`;
+  profileView.style.marginTop = `${header.clientHeight}px`;
+}
+
+function resizeVideoItem() {
+  const elements = document.getElementsByName("video-item");
+  for (const element of elements) {
+    const img = element.getElementsByTagName("img")[0];
+    const p = element.getElementsByTagName("p")[0];
+    const styles = window.getComputedStyle(p);
+    const { marginTop, marginRight, marginBottom, marginLeft } = styles;
+
+    const parsedObject = Object.fromEntries(
+      Object.entries({
+        marginTop,
+        marginRight,
+        marginBottom,
+        marginLeft,
+      }).map(([key, value]) => [key, parseFloat(value) || 0])
+    );
+    element.style.height = `${
+      element.clientWidth * 0.6 +
+      p.clientHeight +
+      parsedObject.marginTop +
+      parsedObject.marginBottom
+    }px`;
+    img.style.width = element.clientWidth + "px";
+    img.style.height = element.clientWidth * 0.6 + "px";
   }
+}
 
-  const name = document.getElementById("name");
-  const favorite = document.getElementById("favorite");
-  const part = document.getElementById("part_selector");
-  updateProfileUI((doc) => {
-    if (doc.data()) {
-      name.value = doc.data().name;
-      favorite.value = doc.data().favorite;
-      part.value = doc.data().part;
-    }
-  });
-  const button = document.getElementById("update");
-  button.addEventListener("click", () => {
-    const image = imageSelector.changed ? imageSelector.files[0] : null;
-    console.log(name.value);
-    uploadProfile(name.value, favorite.value, part.value, image);
-  });
-
-  //制作に携わった楽曲を取得
-  try {
-    const involvedMusic = await getInvolvedMusic();
-    involvedMusic.forEach((doc) => {
-      console.log(`${doc.data().name}`);
-      getMusicURLs(doc.data().authorIDs, doc.data().musicRefs)
-        .then((urls) => {
-          console.log(urls);
-        })
-        .catch((error) => {
-          console.error("There was an error while retrieving the music URLs.");
-          console.log(error);
-        });
+async function setup() {
+  setFooterIcon();
+  const param = getQueryParam("id");
+  let uid = param ? param : auth.currentUser.uid;
+  if (!param) {
+    const signoutElement = document.getElementById("signout");
+    signoutElement.style.display = "block";
+    signoutElement.addEventListener("click", signOut);
+  }
+  getProfile(uid)
+    .then((doc) => {
+      if (!param || uid == auth.currentUser.uid) {
+        document.getElementById("edit-profile").style.display = "block";
+        document
+          .getElementById("edit-profile")
+          .addEventListener("click", (event) => {
+            window.location.href = "./profileEdit.html";
+          });
+      }
+      document.getElementById("loading").style.display = "none";
+      document.getElementById("main-content").style.display = "block";
+      const data = doc.data();
+      console.log(data);
+      document.getElementById("nickname-value").textContent = data.name;
+      document.getElementById("favorite-value").textContent = data.favorite;
+      resizeHeaderImage();
+      resizeProfileView();
+      resizeVideoItem();
+    })
+    .catch((error) => {
+      console.log("error on get profile", error);
     });
+
+  try {
+    const involvedMusic = await getInvolvedMusic(uid);
+
+    const container = document.getElementById("past-works-container");
+    Promise.allSettled(
+      involvedMusic.docs.map((doc) => {
+        return createVideoImage(
+          doc.data().id,
+          doc.data().name,
+          doc.data().thumbnailRef
+        )
+          .then((result) => container.appendChild(result))
+          .catch((error) => {
+            console.warn("error in creating video image", error);
+          });
+      })
+    )
+      .then(() => {
+        resizeHeaderImage();
+        resizeProfileView();
+
+        resizeVideoItem();
+      })
+      .catch((error) => {
+        console.error("error in promise all settled", error);
+      });
   } catch (error) {
     console.error("There was an error while retrieving the involved musics.");
     console.log(error);
   }
 }
 
-onAuthStateChanged(setup, redirectHandler);
+document.addEventListener("DOMContentLoaded", () => {
+  resizeHeaderImage();
+  resizeProfileView();
+
+  resizeVideoItem();
+});
+window.addEventListener("resize", () => {
+  resizeHeaderImage();
+  resizeProfileView();
+  resizeVideoItem();
+});
+
+onAuthStateChanged(setup, redirectToLoginPage);

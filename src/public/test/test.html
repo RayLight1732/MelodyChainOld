@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <!-- reset.css ress -->
+    <link rel="stylesheet" href="https://unpkg.com/ress/dist/ress.min.css" />
+    <link rel="stylesheet" href="../css/styles.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+  </head>
+
+  <body>
+    <!-- ヘッダー -->
+    <header id="header">
+      <div class="logo left-logo">
+        <img src="../img/ロゴ.png" alt="" class="small-logo" />
+      </div>
+      <div class="logo right-logo"><img src="../img/bell.png" alt="" /></div>
+    </header>
+    <!-- ヘッダー -->
+    <!-- サムネ-タイトル -->
+
+    <div class="video-gallery" id="video-gallery"></div>
+    <script>
+      const container = document.getElementById("video-gallery");
+
+      for (var i = 0; i < 10; i++) {
+        const videoItem = document.createElement("div");
+        videoItem.classList.add("video-item");
+        videoItem.setAttribute("name", "video-item");
+
+        // img要素を作成してvideo-itemに追加
+        const img = document.createElement("img");
+        img.src = "../img/ロゴ.png";
+        img.alt = "";
+        videoItem.appendChild(img);
+
+        // p要素を作成してvideo-itemに追加
+        const p = document.createElement("p");
+        p.textContent = "タイトル";
+        videoItem.appendChild(p);
+
+        // containerにvideo-itemを追加
+        container.appendChild(videoItem);
+      }
+
+      function processEvent() {
+        const elements = document.getElementsByName("video-item");
+        for (const element of elements) {
+          const img = element.getElementsByTagName("img")[0];
+          const p = element.getElementsByTagName("p")[0];
+          const styles = window.getComputedStyle(p);
+          const { marginTop, marginRight, marginBottom, marginLeft } = styles;
+
+          const parsedObject = Object.fromEntries(
+            Object.entries({
+              marginTop,
+              marginRight,
+              marginBottom,
+              marginLeft,
+            }).map(([key, value]) => [key, parseFloat(value) || 0])
+          );
+          element.style.height = `${
+            element.clientWidth * 0.6 +
+            p.clientHeight +
+            parsedObject.marginTop +
+            parsedObject.marginBottom
+          }px`;
+          img.style.width = element.clientWidth + "px";
+          img.style.height = element.clientWidth * 0.6 + "px";
+        }
+      }
+      function processEvent2() {
+        const header = document.getElementById("header");
+        const footer = document.getElementById("footer");
+        const video_gallery = document.getElementById("video-gallery");
+        video_gallery.style.height = `${
+          window.innerHeight - header.clientHeight - footer.clientHeight
+        }px`;
+        video_gallery.style.marginTop = `${header.clientHeight}px`;
+      }
+      document.addEventListener("DOMContentLoaded", () => {
+        processEvent();
+        processEvent2();
+      });
+      window.addEventListener("resize", processEvent);
+    </script>
+
+    <!-- フッター -->
+    <!-- <footer>
+      <div class="footer-icon" id="up-arrow">
+        <i class="fa fa-arrow-up"></i>
+      </div>
+      <div class="footer-icon" id="headphones">
+        <i class="fa fa-headphones"></i>
+      </div>
+      <div class="footer-icon" id="plus"><i class="fa fa-plus"></i></div>
+      <div class="footer-icon" id="art">
+        <img src="path_to_your_art_image.jpg" alt="Art" />
+      </div>
+    </footer> -->
+
+    <footer id="footer">
+      <button id="toppage" class="footer-icon" id="up-arrow">
+        <i class="fa fa-arrow-up"></i>
+      </button>
+      <button id="Music-Detail-Page" class="footer-icon" id="headphones">
+        <i class="fa fa-headphones"></i>
+      </button>
+      <button id="upload" class="footer-icon" id="plus">
+        <i class="fa fa-plus"></i>
+      </button>
+      <button id="mypage" class="footer-icon" id="art">
+        <img src="path_to_your_art_image.jpg" alt="Art" />
+      </button>
+    </footer>
+    <!-- フッター -->
+  </body>
+</html>
