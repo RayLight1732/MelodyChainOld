@@ -62,8 +62,10 @@ async function setMusic(authorIDs, previousRefs) {
             a.play();
           }
         });
+      console.log("author id", authorIDs[i]);
+      const authorID = authorIDs[i];
       div.getElementsByTagName("img")[0].addEventListener("click", (event) => {
-        window.location.href = `./mypage.html?uid=${authorIDs[i]}`;
+        window.location.href = `./mypage.html?uid=${authorID}`;
       });
       try {
         div.getElementsByTagName("img")[0].src = await getProfileImageUrl(
